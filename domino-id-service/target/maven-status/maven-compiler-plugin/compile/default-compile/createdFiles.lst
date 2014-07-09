@@ -1,0 +1,6 @@
+ict\wde\domino\id\DominoIdService.class
+ict\wde\domino\id\DominoIdIface.class
+ict\wde\domino\id\cop\TidEPServer.class
+ict\wde\domino\id\cop\TidEPIface.class
+ict\wde\domino\id\cop\TidEPClient.class
+ict\wde\domino\id\TidDef.class
