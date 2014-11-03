@@ -37,6 +37,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 public class DominoConst {
 
   public static final String ZK_PROP = "hbase.zookeeper.quorum";
+  public static final String ZK_CLIENT_PORT_PROP = "hbase.zookeeper.property.clientPort";
 
   public static final Charset META_CHARSET = Charset.forName("UTF-8");
   public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");

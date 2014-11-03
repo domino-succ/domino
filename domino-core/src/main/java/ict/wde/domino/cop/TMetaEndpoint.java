@@ -61,7 +61,7 @@ public class TMetaEndpoint implements TMetaIface {
         Version.VERSION);
     // this.env = env;
     conf = env.getConfiguration();
-    tidClient = DominoIdService.getClient(conf.get(DominoConst.ZK_PROP));
+    tidClient = DominoIdService.getClient(conf);
     this.region = ((RegionCoprocessorEnvironment) env).getRegion();
   }
 

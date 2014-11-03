@@ -20,6 +20,8 @@ package ict.wde.domino.id;
 
 import ict.wde.domino.id.cop.TidEPClient;
 
+import org.apache.hadoop.conf.Configuration;
+
 import java.io.IOException;
 
 /**
@@ -30,8 +32,8 @@ import java.io.IOException;
  */
 public class DominoIdService {
 
-  public static DominoIdIface getClient(String zkAddr) throws IOException {
-    return new TidEPClient(zkAddr);
+  public static DominoIdIface getClient(Configuration config) throws IOException {
+    return new TidEPClient(config);
   }
 
 }

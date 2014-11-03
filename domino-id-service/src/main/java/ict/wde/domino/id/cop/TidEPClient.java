@@ -46,9 +46,8 @@ public class TidEPClient implements DominoIdIface {
   private final Configuration conf;
   private final TidEPIface server;
 
-  public TidEPClient(String zkAddr) throws IOException {
-    conf = new Configuration();
-    conf.set(DominoConst.ZK_PROP, zkAddr);
+  public TidEPClient(Configuration config) throws IOException {
+    conf = config;
     table = initTidTable();
     server = table.coprocessorProxy(TidEPIface.class, TidDef.EP_ROW);
   }

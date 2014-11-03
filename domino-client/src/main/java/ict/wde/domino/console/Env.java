@@ -19,8 +19,6 @@
 package ict.wde.domino.console;
 
 public class Env {
-  public static final String HBASE_SITE = //
-  "F:/wdse/hbase/src/java/coprocessor-test/hbase-site.xml";
   public static final String TABLE = "t";
   public static final String[] CF = { "cf1" };
   public static final String[][] COL = { { "col1", "col2" } };

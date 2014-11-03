@@ -19,6 +19,7 @@
 package ict.wde.domino.client;
 
 import ict.wde.domino.common.Columns;
+import ict.wde.domino.common.ConfigurationHelper;
 import ict.wde.domino.common.DominoConst;
 import ict.wde.domino.id.DominoIdIface;
 import ict.wde.domino.id.DominoIdService;
@@ -51,9 +52,9 @@ public class Domino implements Closeable {
 
   static final Logger LOG = LoggerFactory.getLogger(Domino.class);
 
-  private final Configuration config;
-  private final DominoIdIface tidClient;
-  private final HBaseAdmin admin;
+  private Configuration config;
+  private DominoIdIface tidClient;
+  private HBaseAdmin admin;
 
   /**
    * Constructor with a ZooKeeper connection string.
@@ -64,18 +65,7 @@ public class Domino implements Closeable {
    *           when connection failure occurs.
    */
   public Domino(String zookeeperAddress) throws IOException {
-    config = new Configuration();
-    config.set(DominoConst.ZK_PROP, zookeeperAddress);
-    try {
-      tidClient = newTidClient(zookeeperAddress);
-    }
-    catch (IOException e) {
-      LOG.error("Error connecting to domino id service. ", e);
-      throw e;
-    }
-    admin = new HBaseAdmin(config);
-    initInnerTables();
-    // tableMeta = new HTable(config, DominoConst.TABLE_META);
+    init(ConfigurationHelper.config(zookeeperAddress));
   }
 
   /**
@@ -88,9 +78,13 @@ public class Domino implements Closeable {
    *           when connection failure occurs.
    */
   public Domino(Configuration config) throws IOException {
+    init(config);
+  }
+  
+  private void init(Configuration config) throws IOException {
     this.config = config;
-    try {
-      tidClient = newTidClient(config.get(DominoConst.ZK_PROP));
+		try {
+      tidClient = DominoIdService.getClient(config);
     }
     catch (IOException e) {
       LOG.error("Error connecting to domino id service. ", e);
@@ -247,11 +241,6 @@ public class Domino implements Closeable {
    */
   public Configuration config() {
     return config;
-  }
-
-  private DominoIdIface newTidClient(String zookeeperAddress)
-      throws IOException {
-    return DominoIdService.getClient(zookeeperAddress);
   }
 
   private void initInnerTables() throws IOException {
