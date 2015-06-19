@@ -1,11 +1,22 @@
 package ict.wde.domino.id;
 
+import ict.wde.domino.common.DominoConst;
+import org.apache.hadoop.conf.Configuration;
+
+/**
+ * @author Tieying Zhang, ICT, CAS
+ *
+ */
+
 public class TidTest {
   public static void main(String[] args) throws Throwable {
     // System.setProperty(TidDef.PROP_STANDALONE, "true");
-    DominoIdIface client = DominoIdService.getClient("p145:2181");
+    Configuration conf = new Configuration();
+    conf.set(DominoConst.ZK_PROP, "ccf104:2181");
+    DominoIdIface client = DominoIdService.getClient(conf);
     for (int i = 0; i < 100; ++i) {
-      System.out.println(client.getId());
+      long testId = client.getId();
+      System.out.println(testId);
       Thread.sleep(1000);
     }
     client.close();
