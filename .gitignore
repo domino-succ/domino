@@ -1,36 +1,19 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
+# Eclipse
+.classpath
+.project
+.settings/
 
-# Folder config file
-Desktop.ini
+# Intellij
+.idea/
+*.iml
+*.iws
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
-
+# Mac
 .DS_Store
-.AppleDouble
-.LSOverride
 
-# Icon must ends with two \r.
-Icon
+# Maven
+log/
+target/
 
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
+*.jar
+*.swp

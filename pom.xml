@@ -26,17 +26,17 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<configuration>
-					<outputDirectory>F:\wdse\hbase\deployment\domino\${project.name}\lib</outputDirectory>
-				</configuration>
-			</plugin>
+			<!--<plugin>-->
+				<!--<artifactId>maven-dependency-plugin</artifactId>-->
+				<!--<configuration>-->
+					<!--<outputDirectory>F:\wdse\hbase\deployment\domino\${project.name}\lib</outputDirectory>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<!-- <outputDirectory>F:\wdse\hbase\deployment\domino\${project.name}</outputDirectory> -->
-					<outputDirectory>F:\wdse\hbase\deployment\domino</outputDirectory>
+					<outputDirectory>C:\Users\amosb\domino</outputDirectory>
 				</configuration>
 			</plugin>
 		</plugins>

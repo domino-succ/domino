@@ -82,7 +82,7 @@ public class DominoConst {
 
   public static final String TID_EP_TABLE = "_tid";
 
-  public static final int MAX_VERSION = 3;
+  public static final int MAX_VERSION = 20;
   public static final int MAX_DATA_VERSION = MAX_VERSION * 2;
 
   public static final long DATA_VER0 = 1;

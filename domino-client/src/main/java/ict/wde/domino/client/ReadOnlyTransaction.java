@@ -24,6 +24,7 @@ import ict.wde.domino.common.writable.DResult;
 import ict.wde.domino.id.DominoIdIface;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -56,6 +57,14 @@ public class ReadOnlyTransaction implements Transaction {
       throws IOException {
     this.conf = conf;
     this.metaTable = new HTable(conf, DominoConst.TRANSACTION_META);
+    Field f = null;
+    try {
+      f = metaTable.getClass().getDeclaredField("cleanupConnectionOnClose");
+      f.setAccessible(true);
+      f.set(metaTable, false);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     /*
      * Read-only transactions don't need to create transaction status rows in
      * meta table.
@@ -110,6 +119,14 @@ public class ReadOnlyTransaction implements Transaction {
     HTableInterface table = tables.get(name);
     if (table == null) {
       table = new HTable(conf, name);
+      Field f = null;
+      try {
+        f = table.getClass().getDeclaredField("cleanupConnectionOnClose");
+        f.setAccessible(true);
+        f.set(table, false);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
       tables.put(name, table);
     }
     return table;

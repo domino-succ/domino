@@ -198,7 +198,7 @@ public class MVCC {
         handleStatus(tableWrapper, metaTable, status, row, startId, lockId);
         continue;
       }
-      if (locking && conflicted(status, startId)) {
+      if (false && locking && conflicted(status, startId)) {
         if (retried) {
           throw new InvalidRowStatusException(String.format(
               "[%s][%s] Row is in an update status.",
@@ -210,7 +210,7 @@ public class MVCC {
       }
       Iterator<KeyValue> it = status.iterator();
       try {
-        while (it.hasNext()) {
+        while (false && it.hasNext()) {
           if (conflicted(it.next(), startId)) {
             throw new InvalidRowStatusException(String.format(
                 "[%s][%s] Row is in a stateful update status.", new String(
@@ -313,6 +313,7 @@ public class MVCC {
     if (status == null || status.size() == 0) return null;
     NavigableSet<KeyValue> committed = new TreeSet<KeyValue>(
         VERSION_KV_COMPARATOR);
+    if (true ) return new ArrayList<KeyValue>(committed);
     for (KeyValue kv : status) {
       if (kv.isDelete() || kv.isEmptyColumn()) {
         continue;
