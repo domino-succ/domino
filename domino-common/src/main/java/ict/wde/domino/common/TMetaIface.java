@@ -41,6 +41,7 @@ public interface TMetaIface extends Coprocessor, CoprocessorProtocol {
    */
   public Result getTransactionStatus(long startId) throws IOException;
 
+  public long getCommitId(byte[] startId) throws IOException;
   /**
    * To commit a transaction metadata, returning the commit id.
    * 
@@ -50,7 +51,7 @@ public interface TMetaIface extends Coprocessor, CoprocessorProtocol {
    * @return
    * @throws IOException
    */
-  public long commitTransaction(byte[] startId) throws IOException;
+  public void commitTransaction(byte[] startId, long commitId) throws IOException;
 
   /**
    * To abort a transaction metadata.

@@ -84,18 +84,21 @@ public class TMetaEndpoint implements TMetaIface {
     return Version.VERSION;
   }
 
+  public long getCommitId(byte[] startId) throws IOException {
+    long commitId = tidClient.getId();
+    Get get = new Get(startId);
+    Result r = region.get(get);
+    if (DominoConst.TRX_ACTIVE != DominoConst.transactionStatus(r)) {
+      return DominoConst.ERR_TRX_ABORTED;
+    }
+    return commitId;
+  }
+
   @SuppressWarnings("deprecation")
-  @Override
-  public long commitTransaction(byte[] startId) throws IOException {
+  public void commitTransaction(byte[] startId, long commitId) throws IOException {
     Integer lockId = region.getLock(null, startId, true);
+    long startIdLong = DominoConst.getTidFromTMetaKey(startId);
     try {
-      long commitId = tidClient.getId();
-      long startIdLong = DominoConst.getTidFromTMetaKey(startId);
-      Get get = new Get(startId);
-      Result r = region.get(get, lockId);
-      if (DominoConst.TRX_ACTIVE != DominoConst.transactionStatus(r)) {
-        return DominoConst.ERR_TRX_ABORTED;
-      }
       Put put = new Put(startId);
       put.add(DominoConst.TRANSACTION_META_FAMILY,
           DominoConst.TRANSACTION_STATUS, startIdLong,
@@ -104,7 +107,6 @@ public class TMetaEndpoint implements TMetaIface {
           DominoConst.TRANSACTION_COMMIT_ID, startIdLong,
           Bytes.toBytes(commitId));
       region.put(put, lockId, true);
-      return commitId;
     }
     finally {
       region.releaseRowLock(lockId);

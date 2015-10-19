@@ -319,6 +319,7 @@ public class RWTransaction implements Transaction {
     checkIfReadyToContinue();
     getCommitId();
     commitPuts();
+    commitTransaction();
     removeTransactionStatus();
     closeAllTables();
     reporter.interrupt();
@@ -414,7 +415,7 @@ public class RWTransaction implements Transaction {
   private void getCommitId() throws IOException {
     try {
       long _commitId = metaTable.coprocessorProxy(TMetaIface.class,
-          startIdBytes).commitTransaction(startIdBytes);
+          startIdBytes).getCommitId(startIdBytes);
       if (_commitId == DominoConst.ERR_TRX_ABORTED) {
         throw new IOException("Transaction has been aborted.");
       }
@@ -430,6 +431,10 @@ public class RWTransaction implements Transaction {
     }
   }
 
+  private void commitTransaction() throws IOException {
+    metaTable.coprocessorProxy(TMetaIface.class,
+        startIdBytes).commitTransaction(startIdBytes, commitId);
+  }
   @Override
   public long getStartId() {
     return startId;
