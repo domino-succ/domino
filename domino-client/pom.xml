@@ -17,7 +17,7 @@
 		<repository>
 			<id>jline</id>
 			<name>JLine Project Repository</name>
-			<url>http://jline.sourceforge.net/m2repo</url>
+			<url>https://jline.sourceforge.net/m2repo</url>
 		</repository>
 	</repositories>
 	<dependencies>
